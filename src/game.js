@@ -22,6 +22,68 @@ const game = new Phaser.Game(config);
 let player;
 let cursors;
 
+class StylizedTextBox extends Phaser.GameObjects.Container {
+    constructor(scene, x, y, text, width, height) {
+        super(scene, x, y);
+        
+        // Colors matching the UI theme
+        const colors = {
+            brass: 0xc6912b,
+            brassHighlight: 0xe7b355,
+            brassShadow: 0x8b5e15,
+            background: 0x463829,
+            backgroundLight: 0x5a493a
+        };
+
+        // Create background
+        const background = scene.add.graphics();
+        background.fillStyle(colors.background);
+        background.lineStyle(3, colors.brass);
+        
+        // Draw main background with rounded corners
+        background.fillRoundedRect(0, 0, width, height, 8);
+        
+        // Add brass border with beveled effect
+        background.lineStyle(2, colors.brassShadow);
+        background.strokeRoundedRect(1, 1, width-2, height-2, 8);
+        background.lineStyle(2, colors.brassHighlight);
+        background.strokeRoundedRect(0, 0, width, height, 8);
+        
+        // Add highlight at top
+        const highlight = scene.add.graphics();
+        highlight.lineStyle(1, colors.backgroundLight);
+        highlight.beginPath();
+        highlight.moveTo(8, 3);
+        highlight.lineTo(width-8, 3);
+        highlight.strokePath();
+
+        // Add text
+        const textObject = scene.add.text(width/2, height/2, text, {
+            fontFamily: 'MedievalSharp',
+            fontSize: '24px',
+            color: '#ffffff',
+            align: 'center'
+        });
+        textObject.setOrigin(0.5);
+
+        this.add([background, highlight, textObject]);
+        scene.add.existing(this);
+    }
+}
+
+// For dynamic width based on text
+function createDynamicBox(scene, x, y, text) {
+    const tempText = scene.add.text(0, 0, text, {
+        fontFamily: 'MedievalSharp',
+        fontSize: '24px'
+    });
+    const width = tempText.width + 40; // padding
+    const height = tempText.height + 20; // padding
+    tempText.destroy();
+    
+    return new StylizedTextBox(scene, x, y, text, width, height);
+}
+
 function preload() {
     // Load tileset image first
     this.load.image('PathAndObjects', 'data/PathAndObjects.png');
@@ -103,6 +165,12 @@ function create() {
         
         // Set up keyboard input
         cursors = this.input.keyboard.createCursorKeys();
+
+        // Add stylized text box
+        const inventoryBox = new StylizedTextBox(this, 10, 10, 'Inventory', 200, 50);
+
+        // For longer text or multiple lines
+        const longText = new StylizedTextBox(this, 10, 70, 'Inventory\nItems', 200, 80);
         
     } catch (error) {
         console.error('Error creating map:', error);
@@ -124,7 +192,7 @@ function update() {
         player.setVelocityX(speed);
         player.anims.play('walk-right', true);
     }
-    else if (cursors.up.isDown) {
+    if (cursors.up.isDown) {
         player.setVelocityY(-speed);
         player.anims.play('walk-up', true);
     }
@@ -132,7 +200,7 @@ function update() {
         player.setVelocityY(speed);
         player.anims.play('walk-down', true);
     }
-    else {
+    if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown && !cursors.down.isDown) {
         player.anims.stop();
     }
 }
