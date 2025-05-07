@@ -118,6 +118,15 @@ function create() {
         
         // Set collisions for objects layer
         objectsLayer.setCollisionByProperty({ collides: true });
+        // objectsLayer.setCollisionBetween(1, 256, true, 'objects');
+        
+        // Debug visualization of collision tiles
+        // const debugGraphics = this.add.graphics().setAlpha(0.75);
+        // objectsLayer.renderDebug(debugGraphics, {
+        //     tileColor: null,
+        //     collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),
+        //     faceColor: new Phaser.Display.Color(40, 39, 37, 255)
+        // });
         
         // Create player sprite
         player = this.physics.add.sprite(100, 100, 'character');
