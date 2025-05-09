@@ -113,8 +113,13 @@ function create() {
     
     // Create layers
     try {
+        const scaleFactor = 2
         const groundLayer = map.createLayer('ground', tileset, 0, 0);
         const objectsLayer = map.createLayer('objects', tileset, 0, 0);
+        
+        // Scale the layer to double the size
+        groundLayer.setScale(scaleFactor);        
+        objectsLayer.setScale(scaleFactor);        
         
         // Set collisions for objects layer
         objectsLayer.setCollisionByProperty({ collides: true });
@@ -130,18 +135,19 @@ function create() {
         
         // Create player sprite
         player = this.physics.add.sprite(100, 100, 'character');
+        player.setScale(scaleFactor, scaleFactor);
         player.setCollideWorldBounds(true);
         
         // Set world bounds
-        this.physics.world.bounds.width = map.widthInPixels;
-        this.physics.world.bounds.height = map.heightInPixels;
+        this.physics.world.bounds.width = map.widthInPixels * scaleFactor;
+        this.physics.world.bounds.height = map.heightInPixels * scaleFactor;
         
         // Add collision between player and objects layer
         this.physics.add.collider(player, objectsLayer);
         
         // Camera setup
         this.cameras.main.startFollow(player);
-        this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+        this.cameras.main.setBounds(0, 0, map.widthInPixels * scaleFactor, map.heightInPixels * scaleFactor);
         
         // Create animations
         this.anims.create({
