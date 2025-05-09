@@ -13,6 +13,17 @@ A top down spooky adventure.
 
 Controls: arrow keys to move, use space to pick up items or open the inventory.
 
+How to Run:
+
+For local development testing type:
+
+```bash
+cd src
+python -m http.server 8080
+```
+
+Then navigate to http://localhost:8080/
+
 Team:
 - Dale Wick
 - Jeffrey Wick
