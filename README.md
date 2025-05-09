@@ -24,6 +24,22 @@ python -m http.server 8080
 
 Then navigate to http://localhost:8080/
 
-Team:
+## Team:
 - Dale Wick
 - Jeffrey Wick
+
+
+## Additional Art
+
+*PathAndObjects.png*
+Credit goes to: Zabin, Daneeklu, Jetrel, Hyptosis, Redshrike, Bertram. A link back to this page "http://opengameart.org/content/rpg-tiles-cobble-stone-paths-town-objects to see who did what"
+
+*ui-split.png*
+CC0 by https://opengameart.org/users/buch
+https://opengameart.org/content/golden-ui
+
+*chpepper1squarePNG.png*
+CC0 https://opengameart.org/content/chadmandoos-random-2d-rpg-characters-animations-larger-characters
+
+
+CC0 https://opengameart.org/content/ghost-monster
