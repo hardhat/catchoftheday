@@ -13,6 +13,7 @@ export default class GameScene extends Phaser.Scene {
         this.load.image('PathAndObjects', 'data/PathAndObjects.png');
         this.load.image('town', 'data/town.png');
         this.load.image('Castle2', 'data/Castle2.png');
+        this.load.image('icons', 'data/icons.png');
         this.load.tilemapTiledJSON('map', 'data/world.tmj');
         this.load.spritesheet('character', 'data/chpepper1squirePNG.png', { frameWidth: 32, frameHeight: 32 });
     }
@@ -22,11 +23,12 @@ export default class GameScene extends Phaser.Scene {
         const tileset = map.addTilesetImage('pathandobjects', 'PathAndObjects');
         const tileset2 = map.addTilesetImage('town', 'town');
         const tileset3 = map.addTilesetImage('castle2', 'Castle2');
+        const tileset4 = map.addTilesetImage('icons', 'icons');
         if (!tileset) {
             console.error('Failed to load tileset');
             return;
         }
-        const tilesets = [tileset, tileset2, tileset3];
+        const tilesets = [tileset, tileset2, tileset3, tileset4];
         const scaleFactor = 2;
         const groundLayer = map.createLayer('ground', tilesets, 0, 0);
         const buildingLayer = map.createLayer('building', tilesets, 0, 0);
