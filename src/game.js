@@ -143,6 +143,7 @@ function create() {
         player = this.physics.add.sprite(100, 100, 'character');
         player.setScale(scaleFactor, scaleFactor);
         player.setCollideWorldBounds(true);
+        player.setDepth(10); // Set depth to be above the map layers
         
         // Set world bounds
         this.physics.world.bounds.width = map.widthInPixels * scaleFactor;
@@ -188,10 +189,10 @@ function create() {
         cursors = this.input.keyboard.createCursorKeys();
 
         // Add stylized text box
-        const inventoryBox = new StylizedTextBox(this, 10, 10, 'Inventory', 200, 50);
+        const inventoryBox = new StylizedTextBox(this, 400, 10, 'Collected item "lasagna"', 300, 50);
 
         // For longer text or multiple lines
-        const longText = new StylizedTextBox(this, 10, 70, 'Inventory\nItems', 200, 80);
+        const longText = new StylizedTextBox(this, 400, 70, 'Inventory\nItems', 200, 80);
         
     } catch (error) {
         console.error('Error creating map:', error);
@@ -239,5 +240,38 @@ function update() {
     }
     else if (!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown && !cursors.down.isDown) {
         player.anims.stop();
+    }
+    // If the player is stopped, wait 0.5s, then make a yellow particle effect behind the player until the player moves again
+    if (player.body.velocity.x === 0 && player.body.velocity.y === 0) {
+        if (!player.isStopped) {
+            player.isStopped = false;
+            setTimeout(() => {
+                player.isStopped = true;
+            }, 15000);
+        }
+    } else {
+        player.isStopped = false;
+        player.emitter?.destroy(); // Destroy the emitter if it exists
+        player.emitter = null; // Reset the emitter reference
+    }
+    // If the player is stopped, create a yellow particle effect behind the player
+    if (player.isStopped && player.emitter === null) {
+        // Create a yellow circle texture for particles
+        const graphics = this.add.graphics();
+        graphics.fillStyle(0xffff00, 1);
+        graphics.fillCircle(5, 5, 5);
+        graphics.generateTexture('yellowParticle', 10, 10);
+        graphics.destroy();
+
+        player.emitter = this.add.particles(0, 0, 'yellowParticle', {
+            angle: { min: 0, max: 360 },
+            speed: { min: 50, max: 100 },
+            scale: { start: 0.5, end: 0 },
+            blendMode: 'ADD',
+            lifespan: 1000,
+            quantity: 2,
+            follow: player,
+            depth: 8
+        });
     }
 }
