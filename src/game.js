@@ -244,10 +244,8 @@ function update() {
     // If the player is stopped, wait 0.5s, then make a yellow particle effect behind the player until the player moves again
     if (player.body.velocity.x === 0 && player.body.velocity.y === 0) {
         if (!player.isStopped) {
-            player.isStopped = false;
-            setTimeout(() => {
-                player.isStopped = true;
-            }, 15000);
+            player.isStopped = true;
+            player.stoppedTime = Date.now();
         }
     } else {
         player.isStopped = false;
@@ -255,7 +253,7 @@ function update() {
         player.emitter = null; // Reset the emitter reference
     }
     // If the player is stopped, create a yellow particle effect behind the player
-    if (player.isStopped && player.emitter === null) {
+    if (player.isStopped && player.stoppedTime+15000 < Date.now() && player.emitter === null) {
         // Create a yellow circle texture for particles
         const graphics = this.add.graphics();
         graphics.fillStyle(0xffff00, 1);
