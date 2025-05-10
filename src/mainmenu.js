@@ -4,25 +4,44 @@ import StylizedTextBox from "./stylizedtextbox.js";
 
 export default class MainMenu extends Phaser.Scene {
     constructor() {
-        super('MainMenu');
+        super({ key: 'MainMenu' });
 
         this.gamemode = false;
     }
 
     preload() {
-        //this.load.image('mainmenu', 'assets/mainmenu.png');
-        //this.load.image('play', 'assets/play.png');
-        //this.load.image('about', 'assets/about.png');
-        //this.load.image('exit', 'assets/exit.png');
+        // Add a loading text using a web-safe font first
+        const loadingText = this.add.text(400, 300, 'Loading...', {
+            fontFamily: 'Arial',
+            fontSize: '24px',
+            color: '#ffffff'
+        }).setOrigin(0.5);
+
+        // Load the font
+        this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+
         this.load.image('goatonapole', 'data/goatonapole.jpg');
         this.load.image('tojam2025', 'data/tojam2025.png');
     }
 
     create() {
+        // Use WebFontLoader to ensure font is loaded
+        WebFont.load({
+            google: {
+                families: ['MedievalSharp']
+            },
+            active: () => {
+                // Font is loaded, now create your text
+                this.createMenuText();
+            }
+        });
+    }
+
+    createMenuText() {
         const box = new StylizedTextBox(this, 50, 50, '', 700, 500);
         this.createFancyText(200, 75, 'Catch of the Day', 48);
         const playButton = this.createFancyText(400, 200, ' Play ', 32)
-            .setStyle({backgroundColor: '0x463829'})
+            .setStyle({backgroundColor: 0x463829})
             .setInteractive()
             .on('pointerdown', () => {
             this.gamemode = true;
@@ -32,11 +51,11 @@ export default class MainMenu extends Phaser.Scene {
             playButton.setStyle({ backgroundColor: '#ffff80' });
             })
             .on('pointerout', () => {
-            playButton.setStyle({ backgroundColor: '0x463829' });
+            playButton.setStyle({ backgroundColor: 0x463829 });
             });
 
         const aboutButton = this.createFancyText(400, 300, ' About ', 32)
-            .setStyle({backgroundColor: '0x463829'})
+            .setStyle({backgroundColor: 0x463829})
             .setInteractive()
             .on('pointerdown', () => {
             this.scene.start('AboutScene');
@@ -45,22 +64,11 @@ export default class MainMenu extends Phaser.Scene {
             aboutButton.setStyle({ backgroundColor: '#ffff80' });
             })
             .on('pointerout', () => {
-            aboutButton.setStyle({ backgroundColor: '0x463829' });
+            aboutButton.setStyle({ backgroundColor: 0x463829 });
             });
         
         this.add.image(200, 250, 'goatonapole').setScale(0.5);
         this.add.image(400, 450, 'tojam2025').setScale(0.5);
-        // this.add.image(0, 0, 'mainmenu').setOrigin(0, 0).setScale(1.5);
-        // this.add.image(400, 300, 'play').setOrigin(0.5, 0.5).setScale(1.5).setInteractive().on('pointerdown', () => {
-        //     this.gamemode = true;
-        //     this.scene.start('GameScene', { gamemode: this.gamemode });
-        // });
-        // this.add.image(400, 400, 'about').setOrigin(0.5, 0.5).setScale(1.5).setInteractive().on('pointerdown', () => {
-        //     this.scene.start('AboutScene');
-        // });
-        // this.add.image(400, 500, 'exit').setOrigin(0.5, 0.5).setScale(1.5).setInteractive().on('pointerdown', () => {
-        //     this.game.destroy(true);
-        // });
     }
 
     createFancyText(x, y, message, size) {
@@ -73,10 +81,6 @@ export default class MainMenu extends Phaser.Scene {
         gradient.addColorStop(.5, '#ffff80');
         gradient.addColorStop(.5, '#aaaa44');
         gradient.addColorStop(1, '#111111');
-        // text.setShadow(2, 2, shadowColor, true, false, '10px Arial');
-        // text.setShadow(0, 0, highlightColor, true, false, '10px Arial');
-        // text.setShadow(0, 0, shadowHighlightColor, true, false, '10px Arial');
-        // text.setStroke(strokeColor, 4);
 
         text.setFill(gradient);
         
