@@ -1,0 +1,146 @@
+import StylizedTextBox from "./stylizedtextbox.js";
+
+export default class GameScene extends Phaser.Scene {
+    constructor() {
+        super('GameScene');
+    }
+
+    init(data) {
+        this.gamemode = data.gamemode;
+    }
+
+    preload() {
+        this.load.image('PathAndObjects', 'data/PathAndObjects.png');
+        this.load.image('town', 'data/town.png');
+        this.load.image('Castle2', 'data/Castle2.png');
+        this.load.tilemapTiledJSON('map', 'data/world.tmj');
+        this.load.spritesheet('character', 'data/chpepper1squirePNG.png', { frameWidth: 32, frameHeight: 32 });
+    }
+
+    create() {
+        const map = this.make.tilemap({ key: 'map' });
+        const tileset = map.addTilesetImage('pathandobjects', 'PathAndObjects');
+        const tileset2 = map.addTilesetImage('town', 'town');
+        const tileset3 = map.addTilesetImage('castle2', 'Castle2');
+        if (!tileset) {
+            console.error('Failed to load tileset');
+            return;
+        }
+        const tilesets = [tileset, tileset2, tileset3];
+        const scaleFactor = 2;
+        const groundLayer = map.createLayer('ground', tilesets, 0, 0);
+        const buildingLayer = map.createLayer('building', tilesets, 0, 0);
+        const objectsLayer = map.createLayer('objects', tilesets, 0, 0);
+        groundLayer.setScale(scaleFactor);
+        buildingLayer.setScale(scaleFactor);
+        objectsLayer.setScale(scaleFactor);
+        objectsLayer.setCollisionByProperty({ collides: true });
+
+        this.player = this.physics.add.sprite(100, 100, 'character');
+        this.player.setScale(scaleFactor, scaleFactor);
+        this.player.body.setSize(20, 20);
+        this.player.body.setOffset(6.5, 10);
+        this.player.setCollideWorldBounds(true);
+        this.player.setDepth(10);
+
+        this.physics.world.bounds.width = map.widthInPixels * scaleFactor;
+        this.physics.world.bounds.height = map.heightInPixels * scaleFactor;
+        this.physics.add.collider(this.player, objectsLayer);
+
+        this.cameras.main.startFollow(this.player);
+        this.cameras.main.setBounds(0, 0, map.widthInPixels * scaleFactor, map.heightInPixels * scaleFactor);
+
+        this.anims.create({
+            key: 'walk-down',
+            frames: this.anims.generateFrameNumbers('character', { start: 0, end: 2 }),
+            frameRate: 8,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'walk-left',
+            frames: this.anims.generateFrameNumbers('character', { start: 3, end: 5 }),
+            frameRate: 8,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'walk-right',
+            frames: this.anims.generateFrameNumbers('character', { start: 6, end: 8 }),
+            frameRate: 8,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'walk-up',
+            frames: this.anims.generateFrameNumbers('character', { start: 9, end: 11 }),
+            frameRate: 8,
+            repeat: -1
+        });
+
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+        const inventoryBox = new StylizedTextBox(this, 400, 10, 'Collected item "lasagna"', 300, 50);
+        const longText = new StylizedTextBox(this, 400, 70, 'Inventory\nItems', 200, 80);
+    }
+
+    update() {
+        const speed = 160;
+        this.player.setVelocity(0);
+
+        if (this.cursors.left.isDown && this.cursors.up.isDown) {
+            this.player.setVelocity(-speed, -speed);
+            this.player.anims.play('walk-left', true);
+        } else if (this.cursors.left.isDown && this.cursors.down.isDown) {
+            this.player.setVelocity(-speed, speed);
+            this.player.anims.play('walk-left', true);
+        } else if (this.cursors.right.isDown && this.cursors.up.isDown) {
+            this.player.setVelocity(speed, -speed);
+            this.player.anims.play('walk-right', true);
+        } else if (this.cursors.right.isDown && this.cursors.down.isDown) {
+            this.player.setVelocity(speed, speed);
+            this.player.anims.play('walk-right', true);
+        } else if (this.cursors.left.isDown) {
+            this.player.setVelocityX(-speed);
+            this.player.anims.play('walk-left', true);
+        } else if (this.cursors.right.isDown) {
+            this.player.setVelocityX(speed);
+            this.player.anims.play('walk-right', true);
+        } else if (this.cursors.up.isDown) {
+            this.player.setVelocityY(-speed);
+            this.player.anims.play('walk-up', true);
+        } else if (this.cursors.down.isDown) {
+            this.player.setVelocityY(speed);
+            this.player.anims.play('walk-down', true);
+        } else if (!this.cursors.left.isDown && !this.cursors.right.isDown && !this.cursors.up.isDown && !this.cursors.down.isDown) {
+            this.player.anims.stop();
+        }
+
+        if (this.player.body.velocity.x === 0 && this.player.body.velocity.y === 0) {
+            if (!this.player.isStopped) {
+                this.player.isStopped = true;
+                this.player.stoppedTime = Date.now();
+            }
+        } else {
+            this.player.isStopped = false;
+            this.player.emitter?.destroy();
+            this.player.emitter = null;
+        }
+
+        if (this.player.isStopped && this.player.stoppedTime + 15000 < Date.now() && this.player.emitter === null) {
+            const graphics = this.add.graphics();
+            graphics.fillStyle(0xffff00, 1);
+            graphics.fillCircle(5, 5, 5);
+            graphics.generateTexture('yellowParticle', 10, 10);
+            graphics.destroy();
+
+            this.player.emitter = this.add.particles(0, 0, 'yellowParticle', {
+                angle: { min: 0, max: 360 },
+                speed: { min: 50, max: 100 },
+                scale: { start: 0.5, end: 0 },
+                blendMode: 'ADD',
+                lifespan: 1000,
+                quantity: 2,
+                follow: this.player,
+                depth: 8
+            });
+        }
+    }
+}
