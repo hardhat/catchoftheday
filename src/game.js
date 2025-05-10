@@ -205,7 +205,23 @@ function update() {
     player.setVelocity(0);
     
     // Handle movement
-    if (cursors.left.isDown) {
+    if (cursors.left.isDown && cursors.up.isDown) {
+        player.setVelocity(-speed, -speed);
+        player.anims.play('walk-left', true);
+    }
+    else if (cursors.left.isDown && cursors.down.isDown) {
+        player.setVelocity(-speed, speed);
+        player.anims.play('walk-left', true);
+    }
+    else if (cursors.right.isDown && cursors.up.isDown) {
+        player.setVelocity(speed, -speed);
+        player.anims.play('walk-right', true);
+    }
+    else if (cursors.right.isDown && cursors.down.isDown) {
+        player.setVelocity(speed, speed);
+        player.anims.play('walk-right', true);
+    }
+    else if (cursors.left.isDown) {
         player.setVelocityX(-speed);
         player.anims.play('walk-left', true);
     }
@@ -213,7 +229,7 @@ function update() {
         player.setVelocityX(speed);
         player.anims.play('walk-right', true);
     }
-    if (cursors.up.isDown) {
+    else if (cursors.up.isDown) {
         player.setVelocityY(-speed);
         player.anims.play('walk-up', true);
     }
@@ -221,7 +237,7 @@ function update() {
         player.setVelocityY(speed);
         player.anims.play('walk-down', true);
     }
-    if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown && !cursors.down.isDown) {
+    else if (!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown && !cursors.down.isDown) {
         player.anims.stop();
     }
 }
