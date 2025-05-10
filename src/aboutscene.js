@@ -29,10 +29,10 @@ export default class AboutScene extends Phaser.Scene {
         const height = 500;
 
         // Create a stylized text box
-        const aboutBox = new StylizedTextBox(this, this.cameras.main.centerX, this.cameras.main.centerY, text, width, height);
+        const aboutBox = new StylizedTextBox(this, 50, 50, text, width, height);
         
         // Add a back button
-        const backButton = this.add.text(this.cameras.main.centerX, this.cameras.main.centerY + height / 2 + 20, 'Back', { fontSize: '12px', fill: '#fff' })
+        const backButton = this.add.text(this.cameras.main.centerX, this.cameras.main.centerY + height / 2 + 20, 'Back', { fontSize: '24px', fill: '#fff' })
             .setOrigin(0.5)
             .setInteractive()
             .on('pointerdown', () => {

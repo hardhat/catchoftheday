@@ -37,7 +37,7 @@ export default class StylizedTextBox extends Phaser.GameObjects.Container {
         // Add text
         const textObject = scene.add.text(width/2, height/2, text, {
             fontFamily: 'MedievalSharp',
-            fontSize: '24px',
+            fontSize: '16px',
             color: '#ffffff',
             align: 'center'
         });

@@ -40,7 +40,7 @@ export default class MainMenu extends Phaser.Scene {
     }
 
     createFancyText(x, y, message, size) {
-        const text = this.add.text(x, y, message, { fontFamily: 'Arial Black', fontSize: size });
+        const text = this.add.text(x, y, message, { fontFamily: 'MedievalSharp', fontSize: size });
         text.setDepth(100);
         text.setStroke('#000000', 4);
         //  Apply the gradient fill.
