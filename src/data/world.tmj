@@ -2477,7 +2477,7 @@
                         {
                          "name":"flavor_text",
                          "type":"string",
-                         "value":""
+                         "value":"Michael row your boat ashore!"
                         }, 
                         {
                          "name":"name",
@@ -2515,7 +2515,7 @@
                         {
                          "name":"flavor_text",
                          "type":"string",
-                         "value":"To kindle fire is to invite the wind"
+                         "value":"To kindle fire is to invite the wind,"
                         }, 
                         {
                          "name":"name",
@@ -2534,7 +2534,7 @@
                         {
                          "name":"flavor_text",
                          "type":"string",
-                         "value":""
+                         "value":"Do or do not.  There is no try.  But this fuel can."
                         }, 
                         {
                          "name":"name",
@@ -2572,7 +2572,7 @@
                         {
                          "name":"flavor_text",
                          "type":"string",
-                         "value":"He who hastens escape may hasten his downfall"
+                         "value":"He who hastens escape may hasten his downfall."
                         }, 
                         {
                          "name":"name",
@@ -2591,7 +2591,7 @@
                         {
                          "name":"flavor_text",
                          "type":"string",
-                         "value":""
+                         "value":"How will you ever get where you're\ngoing if you don't pick a direction?"
                         }, 
                         {
                          "name":"name",
@@ -2610,7 +2610,7 @@
                         {
                          "name":"flavor_text",
                          "type":"string",
-                         "value":""
+                         "value":"Knowledge is the key to everything, generally speaking."
                         }, 
                         {
                          "name":"name",
@@ -2667,7 +2667,7 @@
                         {
                          "name":"flavor_text",
                          "type":"string",
-                         "value":""
+                         "value":"It all starts with a single match."
                         }, 
                         {
                          "name":"name",
@@ -2686,7 +2686,7 @@
                         {
                          "name":"flavor_text",
                          "type":"string",
-                         "value":""
+                         "value":"View the hints in the inventory examine window."
                         }, 
                         {
                          "name":"name",
@@ -2705,7 +2705,7 @@
                         {
                          "name":"flavor_text",
                          "type":"string",
-                         "value":""
+                         "value":"Life is like a box of tackle, you never know what you will see."
                         }, 
                         {
                          "name":"name",
