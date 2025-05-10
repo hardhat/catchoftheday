@@ -87,6 +87,8 @@ function createDynamicBox(scene, x, y, text) {
 function preload() {
     // Load tileset image first
     this.load.image('PathAndObjects', 'data/PathAndObjects.png');
+    this.load.image('town', 'data/town.png');
+    this.load.image('Castle2', 'data/Castle2.png');
     
     // Load the tilemap
     this.load.tilemapTiledJSON('map', 'data/world.tmj');
@@ -105,20 +107,24 @@ function create() {
     // Add tileset - IMPORTANT: first parameter must match the tileset name in Tiled file
     // Second parameter must match the key used in this.load.image()
     const tileset = map.addTilesetImage('pathandobjects', 'PathAndObjects');
-    
+    const tileset2 = map.addTilesetImage('town', 'town');
+    const tileset3 = map.addTilesetImage('castle2', 'Castle2');
     if (!tileset) {
         console.error('Failed to load tileset');
         return;
     }
+    const tilesets = [tileset, tileset2, tileset3];
     
     // Create layers
     try {
         const scaleFactor = 2
-        const groundLayer = map.createLayer('ground', tileset, 0, 0);
-        const objectsLayer = map.createLayer('objects', tileset, 0, 0);
+        const groundLayer = map.createLayer('ground', tilesets, 0, 0);
+        const buildingLayer = map.createLayer('building', tilesets, 0, 0);
+        const objectsLayer = map.createLayer('objects', tilesets, 0, 0);
         
         // Scale the layer to double the size
-        groundLayer.setScale(scaleFactor);        
+        groundLayer.setScale(scaleFactor);
+        buildingLayer.setScale(scaleFactor);
         objectsLayer.setScale(scaleFactor);        
         
         // Set collisions for objects layer
