@@ -2475,6 +2475,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"flavor_text",
+                         "type":"string",
+                         "value":""
+                        }, 
+                        {
                          "name":"name",
                          "type":"string",
                          "value":"oar"
@@ -2487,6 +2492,11 @@
                          "name":"collectable",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"flavor_text",
+                         "type":"string",
+                         "value":"Even the clearest path is lost in fog when the heart is clouded."
                         }, 
                         {
                          "name":"name",
@@ -2503,6 +2513,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"flavor_text",
+                         "type":"string",
+                         "value":"To kindle fire is to invite the wind"
+                        }, 
+                        {
                          "name":"name",
                          "type":"string",
                          "value":"motor key"
@@ -2515,6 +2530,11 @@
                          "name":"collectable",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"flavor_text",
+                         "type":"string",
+                         "value":""
                         }, 
                         {
                          "name":"name",
@@ -2531,6 +2551,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"flavor_text",
+                         "type":"string",
+                         "value":"Noise draws attention. In silence lies survival."
+                        }, 
+                        {
                          "name":"name",
                          "type":"string",
                          "value":"spark plug"
@@ -2543,6 +2568,11 @@
                          "name":"collectable",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"flavor_text",
+                         "type":"string",
+                         "value":"He who hastens escape may hasten his downfall"
                         }, 
                         {
                          "name":"name",
@@ -2559,6 +2589,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"flavor_text",
+                         "type":"string",
+                         "value":""
+                        }, 
+                        {
                          "name":"name",
                          "type":"string",
                          "value":"compass"
@@ -2571,6 +2606,11 @@
                          "name":"collectable",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"flavor_text",
+                         "type":"string",
+                         "value":""
                         }, 
                         {
                          "name":"name",
@@ -2587,6 +2627,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"flavor_text",
+                         "type":"string",
+                         "value":"When the light is blinding, shadows grow bold."
+                        }, 
+                        {
                          "name":"name",
                          "type":"string",
                          "value":"lantern"
@@ -2599,6 +2644,11 @@
                          "name":"collectable",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"flavor_text",
+                         "type":"string",
+                         "value":"Victory is not always salvation. What is won may cost more than it is worth."
                         }, 
                         {
                          "name":"name",
@@ -2615,6 +2665,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"flavor_text",
+                         "type":"string",
+                         "value":""
+                        }, 
+                        {
                          "name":"name",
                          "type":"string",
                          "value":"matches"
@@ -2627,6 +2682,11 @@
                          "name":"collectable",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"flavor_text",
+                         "type":"string",
+                         "value":""
                         }, 
                         {
                          "name":"name",
@@ -2643,9 +2703,41 @@
                          "value":true
                         }, 
                         {
+                         "name":"flavor_text",
+                         "type":"string",
+                         "value":""
+                        }, 
+                        {
                          "name":"name",
                          "type":"string",
                          "value":"tackle box"
+                        }]
+                }, 
+                {
+                 "id":13,
+                 "properties":[
+                        {
+                         "name":"flavor_text",
+                         "type":"string",
+                         "value":""
+                        }]
+                }, 
+                {
+                 "id":14,
+                 "properties":[
+                        {
+                         "name":"flavor_text",
+                         "type":"string",
+                         "value":""
+                        }]
+                }, 
+                {
+                 "id":15,
+                 "properties":[
+                        {
+                         "name":"flavor_text",
+                         "type":"string",
+                         "value":""
                         }]
                 }, 
                 {
