@@ -142,6 +142,12 @@ function create() {
         // Create player sprite
         player = this.physics.add.sprite(100, 100, 'character');
         player.setScale(scaleFactor, scaleFactor);
+        
+        // Set the base size of the hitbox (rectangle)
+        player.body.setSize(20, 20); // Player has Width: 20, Height: 40
+        
+        // Adjust the hitbox offset to align it with the sprite
+        player.body.setOffset(6.5, 10);
         player.setCollideWorldBounds(true);
         player.setDepth(10); // Set depth to be above the map layers
         
