@@ -1,4 +1,5 @@
 import StylizedTextBox from "./stylizedtextbox.js";
+import Player from "./player.js";
 
 export default class GameScene extends Phaser.Scene {
     constructor() {
@@ -39,6 +40,7 @@ export default class GameScene extends Phaser.Scene {
         objectsLayer.setCollisionByProperty({ collides: true });
 
         this.player = this.physics.add.sprite(100, 100, 'character');
+        this.player.actor = new Player({scene:this, x:100, y:100, sprite:this.player, health:null});
         this.player.setScale(scaleFactor, scaleFactor);
         this.player.body.setSize(20, 20);
         this.player.body.setOffset(6.5, 10);
@@ -84,6 +86,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     update() {
+        this.player.actor.update();
         const speed = 160;
         this.player.setVelocity(0);
 
