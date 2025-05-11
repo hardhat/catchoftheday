@@ -17,6 +17,10 @@ export default class GameScene extends Phaser.Scene {
         this.load.image('icons', 'data/icons.png');
         this.load.tilemapTiledJSON('map', 'data/world.tmj');
         this.load.spritesheet('character', 'data/chpepper1squirePNG.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.audio('fog1', 'data/fog1.mp3');
+        this.load.audio('fog2', 'data/fog2.mp3');
+        this.load.audio('fog3', 'data/fog3.mp3');
+        this.load.audio('fog4', 'data/fog4.mp3');
     }
 
     create() {
@@ -80,6 +84,10 @@ export default class GameScene extends Phaser.Scene {
         this.fog.setVisible(true);
         this.fog.setAlpha(0.1); // Set initial opacity
 
+        // Start  by playing the fog music loop for fog1
+        this.fogMusic = this.sound.add('fog1', { loop: true, volume: 0.5 });
+        this.fogMusic.play();
+
         this.cameras.main.startFollow(this.player);
         this.cameras.main.setBounds(0, 0, map.widthInPixels * scaleFactor, map.heightInPixels * scaleFactor);
 
@@ -125,6 +133,66 @@ export default class GameScene extends Phaser.Scene {
                 duration: 2000,
                 ease: 'Linear'
             });
+            // Update the fog music based on the number of items collected
+            if (totalItems == 2) {
+                this.tweens.add({
+                    targets: this.fogMusic,
+                    volume: 0,
+                    duration: 1000,
+                    onComplete: () => {
+                        this.fogMusic.stop();
+                        this.fogMusic = this.sound.add('fog2', { loop: true, volume: 0 });
+                        this.fogMusic.play();
+                        this.tweens.add({
+                            targets: this.fogMusic,
+                            volume: 0.5,
+                            duration: 1000
+                        });
+                    }
+                });
+            } else if (totalItems == 4) {
+                this.tweens.add({
+                    targets: this.fogMusic,
+                    volume: 0,
+                    duration: 1000,
+                    onComplete: () => {
+                        this.fogMusic.stop();
+                        this.fogMusic = this.sound.add('fog3', { loop: true, volume: 0 });
+                        this.fogMusic.play();
+                        this.tweens.add({
+                            targets: this.fogMusic,
+                            volume: 0.5,
+                            duration: 1000
+                        });
+                    }
+                });
+            } else if (totalItems == 6) {
+                this.tweens.add({
+                    targets: this.fogMusic,
+                    volume: 0,
+                    duration: 1000,
+                    onComplete: () => {
+                        this.fogMusic.stop();
+                        this.fogMusic = this.sound.add('fog4', { loop: true, volume: 0 });
+                        this.fogMusic.play();
+                        this.tweens.add({
+                            targets: this.fogMusic,
+                            volume: 0.5,
+                            duration: 1000
+                        });
+                    }
+                });
+            }
+            // Show the collected item message
+            const overlayText = StylizedTextBox.createDynamicBox(this, 50, 50, `${data.item} collected!\n` +
+                `Total items: ${data.totalItems}\n` +
+                'Dismiss this dialog with space.\n'
+            ).setDepth(1000);
+            this.input.keyboard.once('keydown-SPACE', () => {
+                if (overlayText) {
+                    overlayText.destroy();
+                }
+            });
         });
 
         this.events.on('boatCollision', (tile) => {
@@ -156,6 +224,8 @@ export default class GameScene extends Phaser.Scene {
                     if (overlayText) {
                         overlayText.destroy();
                     }
+                    // Stop the fog music
+                    this.fogMusic.stop();
                     // Start the next scene or logic for escaping
                     this.scene.start('EscapeScene', { gamemode: this.gamemode });
                 });
@@ -169,7 +239,10 @@ export default class GameScene extends Phaser.Scene {
             .setScrollFactor(0) // This makes it stay fixed on screen
             .setDepth(1000) // Set depth to ensure it appears above other elements
             .on('pointerdown', () => {
-            this.scene.start('MainMenu', { gamemode: this.gamemode });
+                // Stop the fog music
+                this.fogMusic.stop();
+                // Start the main menu scene
+                this.scene.start('MainMenu', { gamemode: this.gamemode });
             })
             .on('pointerover', () => {
             resetButton.setStyle({ backgroundColor: '#ffff80' });
@@ -204,15 +277,6 @@ export default class GameScene extends Phaser.Scene {
             this.overlayText.destroy();
             this.overlayText = null;
             }
-        });
-
-        // On the key e, test the escape scene
-        this.input.keyboard.on('keydown-E', () => {
-            if (this.overlayText) {
-                this.overlayText.destroy();
-                this.overlayText = null;
-            }
-            this.scene.start('EscapeScene', { gamemode: this.gamemode });
         });
     }
 
