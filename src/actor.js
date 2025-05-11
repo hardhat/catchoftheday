@@ -19,6 +19,13 @@ export default class Actor {
         // this.attackSpeed = 500;
     }
 	
+    convertWorldToTile(x, y) {
+        // Convert world coordinates to tile coordinates
+        const tileX = Math.floor(x / this.scene.map.tileWidth);
+        const tileY = Math.floor(y / this.scene.map.tileHeight);
+        return { tileX, tileY };
+    }
+
     update()
     {
         // Animation events both the player sprite and any attack particle event. 
