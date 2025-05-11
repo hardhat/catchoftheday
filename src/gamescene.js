@@ -190,6 +190,15 @@ export default class GameScene extends Phaser.Scene {
             this.overlayText = null;
             }
         });
+
+        // On the key e, test the escape scene
+        this.input.keyboard.on('keydown-E', () => {
+            if (this.overlayText) {
+                this.overlayText.destroy();
+                this.overlayText = null;
+            }
+            this.scene.start('EscapeScene', { gamemode: this.gamemode });
+        });
     }
 
     createFancyText(x, y, message, size) {
