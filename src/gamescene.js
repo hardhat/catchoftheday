@@ -95,6 +95,7 @@ export default class GameScene extends Phaser.Scene {
             .setStyle({backgroundColor: 0x463829})
             .setInteractive()
             .setScrollFactor(0) // This makes it stay fixed on screen
+            .setDepth(1000) // Set depth to ensure it appears above other elements
             .on('pointerdown', () => {
             this.scene.start('MainMenu', { gamemode: this.gamemode });
             })
