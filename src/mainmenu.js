@@ -11,7 +11,7 @@ export default class MainMenu extends Phaser.Scene {
 
     preload() {
         // Add a loading text using a web-safe font first
-        const loadingText = this.add.text(400, 300, 'Loading...', {
+        this.loadingText = this.add.text(400, 300, 'Loading...', {
             fontFamily: 'Arial',
             fontSize: '24px',
             color: '#ffffff'
@@ -22,6 +22,9 @@ export default class MainMenu extends Phaser.Scene {
 
         this.load.image('goatonapole', 'data/goatonapole.jpg');
         this.load.image('tojam2025', 'data/tojam2025.png');
+        this.load.image('title_screen', 'data/title_screen.png');
+        // load the menu_music
+        this.load.audio('menu_music', 'data/menu_theme.mp3');
     }
 
     create() {
@@ -33,8 +36,27 @@ export default class MainMenu extends Phaser.Scene {
             active: () => {
                 // Font is loaded, now create your text
                 this.createMenuText();
+                this.title_screen = this.add.image(400, 300, 'title_screen').setDepth(1000);
+                // If the title_screen is clicked, start the music and remove the title_screen
+                this.title_screen.setInteractive()
+                    .on('pointerdown', () => {
+                        this.title_screen.destroy();
+                        this.music = this.sound.add('menu_music', { loop: true });
+                        this.music.play();
+                        this.loadingText.destroy(); // Remove the loading text
+                    })
+                    .on('pointerover', () => {
+                        this.title_screen.setScale(1.05);
+                    })
+                    .on('pointerout', () => {
+                        this.title_screen.setScale(1);
+                    });
+        
             }
         });
+        this.musicPlaying = false;
+        this.music = null;
+
     }
 
     createMenuText() {
@@ -45,6 +67,7 @@ export default class MainMenu extends Phaser.Scene {
             .setInteractive()
             .on('pointerdown', () => {
             this.gamemode = true;
+            this.music.stop();
             this.scene.start('GameScene', { gamemode: this.gamemode });
             })
             .on('pointerover', () => {
@@ -88,6 +111,7 @@ export default class MainMenu extends Phaser.Scene {
     }
 
     update() {
-        // Update the main menu if needed
+        // Update logic for the main menu can go here if needed
+        // For example, you could check for key presses to start the game or show credits
     }
 }

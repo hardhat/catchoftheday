@@ -25,8 +25,10 @@ python -m http.server 8080
 Then navigate to http://localhost:8080/
 
 ## Team:
-- Dale Wick
-- Jeffrey Wick
+- Dale Wick (HardhatDoozer)
+- Jeffrey Wick (Jet Shark)
+- Art by indiegamefriend
+- Music by Jen (Haksil13)
 
 
 ## Additional Art
