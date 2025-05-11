@@ -39,7 +39,7 @@ export default class GameScene extends Phaser.Scene {
         objectsLayer.setScale(scaleFactor);
         objectsLayer.setCollisionByProperty({ collides: true });
 
-        this.player = this.physics.add.sprite(100, 100, 'character');
+        this.player = this.physics.add.sprite(890*2, 320*2, 'character');
         this.player.actor = new Player({scene:this, x:100, y:100, sprite:this.player, health:null});
         this.player.actor.setObjectsLayer(objectsLayer);
         this.player.setScale(scaleFactor, scaleFactor);
