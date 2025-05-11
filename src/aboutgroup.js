@@ -14,7 +14,7 @@ export default class AboutGroup extends Phaser.GameObjects.Group {
     create() {
         const text = "Catch of the Day\n\n" +
             "A game by Team Sushi\n\n" +
-            "Version 1.0\n\n" +
+            "Dale Wick (hardhat), Jeffrey Wick (JetShark), indiegamefriend, Jen (Haksil13)\n\n" +
             "Just what did you do last night anyway?  Here you are on the dock of an abandoned\n" +
             "fishing village fishing village with just the clothes on your back. \n" +
             "Even your pockets are empty.\n\n" +

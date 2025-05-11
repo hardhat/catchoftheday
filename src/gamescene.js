@@ -184,11 +184,18 @@ export default class GameScene extends Phaser.Scene {
                 });
             }
             // Show the collected item message
-            const overlayText = StylizedTextBox.createDynamicBox(this, 50, 50, `${data.item} collected!\n` +
+            var overlayText = StylizedTextBox.createDynamicBox(this, 50, 50, `${data.item} collected!\n` +
                 `Total items: ${data.totalItems}\n` +
                 'Dismiss this dialog with space.\n'
             ).setDepth(1000);
             this.input.keyboard.once('keydown-SPACE', () => {
+                if (overlayText) {
+                    overlayText.destroy();
+                    overlayText = null;
+                }
+            });
+            // Auto-dismiss the overlayText after 10 seconds
+            this.time.delayedCall(10000, () => {
                 if (overlayText) {
                     overlayText.destroy();
                 }
