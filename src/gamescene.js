@@ -57,8 +57,8 @@ export default class GameScene extends Phaser.Scene {
             areasLayer.objects.forEach(object => {
                 if (object.rectangle) {
                     const rect = this.add.rectangle(object.x * scaleFactor, object.y * scaleFactor, object.width * scaleFactor, object.height * scaleFactor);
-                    this.physics.add.existing(rect, true);
-                    this.physics.add.collider(this.player, rect);
+                    // this.physics.add.existing(rect, true);
+                    // this.physics.add.collider(this.player, rect);
                 }
                 // Store boat point location
                 if (object.point && object.name === 'boat') {
@@ -112,7 +112,7 @@ export default class GameScene extends Phaser.Scene {
         this.events.on('boatCollision', (tile) => {
             console.log('Boat collision detected!');
 
-            var neededItems = ['outboard motor', 'keys', 'sparkplug', 'fuel'];
+            var neededItems = ['outboard motor', 'motor key', 'spark plug', 'fuel can'];
             // Check if the player has all needed items
             var missingItems = neededItems.filter(item => !this.player.actor.inventory[item]);
             if (missingItems.length > 0) {
@@ -126,8 +126,7 @@ export default class GameScene extends Phaser.Scene {
                 this.input.keyboard.once('keydown-SPACE', () => {
                     if (overlayText) {
                         overlayText.destroy();
-                        overlayText = null;
-                    }
+                   }
                 });
             } else {
                 console.log('All needed items collected!');
@@ -138,7 +137,6 @@ export default class GameScene extends Phaser.Scene {
                 this.input.keyboard.once('keydown-SPACE', () => {
                     if (overlayText) {
                         overlayText.destroy();
-                        overlayText = null;
                     }
                     // Start the next scene or logic for escaping
                     this.scene.start('EscapeScene', { gamemode: this.gamemode });

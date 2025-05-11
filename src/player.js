@@ -22,6 +22,13 @@ export default class Player extends Actor {
                 this.collectButton.setVisible(false);
             }
         });
+        // Also collect with space key.
+        this.scene.input.keyboard.on('keydown-SPACE', () => {
+            if (this.currentTile) {
+                this.collectItem(this.currentTile);
+                this.collectButton.setVisible(false);
+            }
+        });
     }
 
     setObjectsLayer(layer) {
