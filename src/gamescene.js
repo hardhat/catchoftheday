@@ -71,6 +71,15 @@ export default class GameScene extends Phaser.Scene {
             });
         }
 
+        // Create a pure white fog overlay at depth 9.  It starts out at 10% opacity, and updates 90% opacity based on the player inventory count.
+        this.fog = this.add.graphics({ x: 0, y: 0 });
+        this.fog.fillStyle(0xffffff, 1.0); // White color
+        this.fog.fillRect(0, 0, map.widthInPixels * scaleFactor, map.heightInPixels * scaleFactor);
+        this.fog.setDepth(9);
+        this.fog.setScrollFactor(0); // This makes it stay fixed on screen
+        this.fog.setVisible(true);
+        this.fog.setAlpha(0.1); // Set initial opacity
+
         this.cameras.main.startFollow(this.player);
         this.cameras.main.setBounds(0, 0, map.widthInPixels * scaleFactor, map.heightInPixels * scaleFactor);
 
@@ -107,6 +116,15 @@ export default class GameScene extends Phaser.Scene {
         this.events.on('itemCollected', (data) => {
             console.log(`${data.item} collected! Total: ${data.count}`);
             // Update UI or trigger other events
+            // Update the fog opacity based on the number of items collected
+            const totalItems = Object.keys(this.player.actor.inventory).length;
+            const opacity = Math.min(0.9, 0.1 + (totalItems / 10) * 0.9); // Adjust the formula as needed
+            this.tweens.add({
+                targets: this.fog,
+                alpha: opacity,
+                duration: 2000,
+                ease: 'Linear'
+            });
         });
 
         this.events.on('boatCollision', (tile) => {
@@ -176,8 +194,7 @@ export default class GameScene extends Phaser.Scene {
             'I need to find a way out of this place.\n' +
             'I should look for a boat.\n\n' +
             'I can use the arrow keys to move around.\n' +
-            'I can interact with objects by pressing the space bar.\n' +
-            'I can collect items by clicking on them.\n\n' +
+            'I can collect items by hitting space.\n\n' +
             'Dismiss this dialog with space.\n'
         ).setDepth(1000);
 
