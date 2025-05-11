@@ -1,5 +1,6 @@
 // Main menu goes here.
 import StylizedTextBox from "./stylizedtextbox.js";
+import AboutGroup from "./aboutgroup.js";
 // Options from main menu: play, about (shows credits) as buttons.
 
 export default class MainMenu extends Phaser.Scene {
@@ -35,6 +36,7 @@ export default class MainMenu extends Phaser.Scene {
             },
             active: () => {
                 // Font is loaded, now create your text
+                this.loadingText.destroy(); // Remove the loading text
                 this.createMenuText();
                 this.title_screen = this.add.image(400, 300, 'title_screen').setDepth(1000);
                 // If the title_screen is clicked, start the music and remove the title_screen
@@ -43,7 +45,6 @@ export default class MainMenu extends Phaser.Scene {
                         this.title_screen.destroy();
                         this.music = this.sound.add('menu_music', { loop: true });
                         this.music.play();
-                        this.loadingText.destroy(); // Remove the loading text
                     })
                     .on('pointerover', () => {
                         this.title_screen.setScale(1.05);
@@ -81,13 +82,15 @@ export default class MainMenu extends Phaser.Scene {
             .setStyle({backgroundColor: 0x463829})
             .setInteractive()
             .on('pointerdown', () => {
-            this.scene.start('AboutScene');
+                // Show the about group
+                this.aboutGroup  = new AboutGroup(this);
+                this.aboutGroup.create();
             })
             .on('pointerover', () => {
-            aboutButton.setStyle({ backgroundColor: '#ffff80' });
+                aboutButton.setStyle({ backgroundColor: '#ffff80' });
             })
             .on('pointerout', () => {
-            aboutButton.setStyle({ backgroundColor: 0x463829 });
+                aboutButton.setStyle({ backgroundColor: 0x463829 });
             });
         
         this.add.image(200, 250, 'goatonapole').setScale(0.5);

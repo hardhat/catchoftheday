@@ -1,8 +1,10 @@
 import StylizedTextBox from "./stylizedtextbox.js";
 
-export default class AboutScene extends Phaser.Scene {
-    constructor() {
+export default class AboutGroup extends Phaser.GameObjects.Group {
+    constructor(scene) {
         super('AboutScene');
+        this.scene = scene;
+        this.scene.add.existing(this);
     }
 
     preload() {
@@ -29,14 +31,18 @@ export default class AboutScene extends Phaser.Scene {
         const height = 500;
 
         // Create a stylized text box
-        const aboutBox = new StylizedTextBox(this, 50, 50, text, width, height);
+        const aboutBox = new StylizedTextBox(this.scene, 50, 50, text, width, height).setDepth(1000);
+
         
         // Add a back button
-        const backButton = this.add.text(this.cameras.main.centerX, this.cameras.main.centerY + height / 2 + 20, 'Back', { fontSize: '24px', fill: '#fff' })
+        const backButton = this.scene.add.text(this.scene.cameras.main.centerX, this.scene.cameras.main.centerY + height / 2 + 20, 'Back', { fontSize: '24px', fill: '#fff' })
+            .setDepth(1000)
             .setOrigin(0.5)
             .setInteractive()
             .on('pointerdown', () => {
-                this.scene.start('MainMenu');
+                aboutBox.destroy(); // Destroy the AboutBox
+                backButton.destroy(); // Destroy the Back button
+                this.scene.aboutGroup.destroy(); // Destroy the AboutGroup
             });
     }
     
