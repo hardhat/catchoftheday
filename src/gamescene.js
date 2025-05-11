@@ -104,6 +104,18 @@ export default class GameScene extends Phaser.Scene {
             .on('pointerout', () => {
             resetButton.setStyle({ backgroundColor: 0x463829 });
             });
+
+        this.objectiveText = this.createText(50, 550, 'Objective: Escape the abandoned fishing village!', 16)
+            .setStyle({backgroundColor: 0x463829})
+            .setInteractive()
+            .setScrollFactor(0) // This makes it stay fixed on screen
+            .on('pointerover', () => {
+            this.objectiveText.setStyle({ backgroundColor: '#ffff80' });
+            })
+            .on('pointerout', () => {
+            this.objectiveText.setStyle({ backgroundColor: 0x463829 });
+            });
+        this.objectiveText.setDepth(1000);
     }
 
     createFancyText(x, y, message, size) {
@@ -118,6 +130,15 @@ export default class GameScene extends Phaser.Scene {
         gradient.addColorStop(1, '#111111');
 
         text.setFill(gradient);
+        
+        return text;
+    }
+    
+    createText(x, y, message, size) {
+        const text = this.add.text(x, y, message, { fontFamily: 'MedievalSharp', fontSize: size });
+        text.setDepth(100);
+        text.setStroke('#000000', 4);
+        text.setFill('#ffff80');
         
         return text;
     }
