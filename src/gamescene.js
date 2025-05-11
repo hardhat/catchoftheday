@@ -89,6 +89,37 @@ export default class GameScene extends Phaser.Scene {
             console.log(`${data.item} collected! Total: ${data.count}`);
             // Update UI or trigger other events
         });
+
+        // Create a HUD container that stays fixed on screen
+        const resetButton = this.createFancyText(650, 550, ' Reset Game ', 24)
+            .setStyle({backgroundColor: 0x463829})
+            .setInteractive()
+            .setScrollFactor(0) // This makes it stay fixed on screen
+            .on('pointerdown', () => {
+            this.scene.start('MainMenu', { gamemode: this.gamemode });
+            })
+            .on('pointerover', () => {
+            resetButton.setStyle({ backgroundColor: '#ffff80' });
+            })
+            .on('pointerout', () => {
+            resetButton.setStyle({ backgroundColor: 0x463829 });
+            });
+    }
+
+    createFancyText(x, y, message, size) {
+        const text = this.add.text(x, y, message, { fontFamily: 'MedievalSharp', fontSize: size });
+        text.setDepth(100);
+        text.setStroke('#000000', 4);
+        //  Apply the gradient fill.
+        const gradient = text.context.createLinearGradient(0, 0, 0, text.height);
+        gradient.addColorStop(0, '#111111');
+        gradient.addColorStop(.5, '#ffff80');
+        gradient.addColorStop(.5, '#aaaa44');
+        gradient.addColorStop(1, '#111111');
+
+        text.setFill(gradient);
+        
+        return text;
     }
 
     update() {
