@@ -3,6 +3,7 @@
 import StylizedTextBox from "./stylizedtextbox.js";
 import MainMenu from "./mainmenu.js";
 import GameScene from "./gamescene.js";
+import EscapeScene from "./escapescene.js";
 
 const config = {
     type: Phaser.AUTO,
@@ -20,7 +21,7 @@ const config = {
     //     create: create,
     //     update: update
     // }
-    scene: [MainMenu, GameScene],
+    scene: [MainMenu, GameScene, EscapeScene],
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,

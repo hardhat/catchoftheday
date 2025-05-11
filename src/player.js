@@ -33,6 +33,10 @@ export default class Player extends Actor {
             if (tile.properties && tile.properties.collectable) {
             this.interactWithTile(tile);
             }
+            if (tile.properties && tile.properties.target) {
+                console.log('Boat collision detected!');
+                this.scene.events.emit('boatCollision', tile);
+            }
         });
     }
 

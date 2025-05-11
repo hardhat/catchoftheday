@@ -38,6 +38,7 @@ export default class GameScene extends Phaser.Scene {
         buildingLayer.setScale(scaleFactor);
         objectsLayer.setScale(scaleFactor);
         objectsLayer.setCollisionByProperty({ collides: true });
+        const areasLayer = map.getObjectLayer('areas');
 
         this.player = this.physics.add.sprite(890*2, 320*2, 'character');
         this.player.actor = new Player({scene:this, x:100, y:100, sprite:this.player, health:null});
@@ -51,6 +52,24 @@ export default class GameScene extends Phaser.Scene {
         this.physics.world.bounds.width = map.widthInPixels * scaleFactor;
         this.physics.world.bounds.height = map.heightInPixels * scaleFactor;
         this.physics.add.collider(this.player, objectsLayer);
+        if (areasLayer) {
+            // Add collision for rectangles in areas layer
+            areasLayer.objects.forEach(object => {
+                if (object.rectangle) {
+                    const rect = this.add.rectangle(object.x * scaleFactor, object.y * scaleFactor, object.width * scaleFactor, object.height * scaleFactor);
+                    this.physics.add.existing(rect, true);
+                    this.physics.add.collider(this.player, rect);
+                }
+                // Store boat point location
+                if (object.point && object.name === 'boat') {
+                    this.boatLocation = { x: object.x * scaleFactor, y: object.y * scaleFactor };
+                }
+                // Store start point location
+                if (object.point && object.name === 'start') {
+                    this.startLocation = { x: object.x * scaleFactor, y: object.y * scaleFactor };
+                }
+            });
+        }
 
         this.cameras.main.startFollow(this.player);
         this.cameras.main.setBounds(0, 0, map.widthInPixels * scaleFactor, map.heightInPixels * scaleFactor);
@@ -82,12 +101,49 @@ export default class GameScene extends Phaser.Scene {
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        const inventoryBox = new StylizedTextBox(this, 400, 10, 'Collected item "lasagna"', 300, 50);
-        const longText = new StylizedTextBox(this, 400, 70, 'Inventory\nItems', 200, 80);
+        //const inventoryBox = new StylizedTextBox(this, 400, 10, 'Collected item "lasagna"', 300, 50);
+        //const longText = new StylizedTextBox(this, 400, 70, 'Inventory\nItems', 200, 80);
 
         this.events.on('itemCollected', (data) => {
             console.log(`${data.item} collected! Total: ${data.count}`);
             // Update UI or trigger other events
+        });
+
+        this.events.on('boatCollision', (tile) => {
+            console.log('Boat collision detected!');
+
+            var neededItems = ['outboard motor', 'keys', 'sparkplug', 'fuel'];
+            // Check if the player has all needed items
+            var missingItems = neededItems.filter(item => !this.player.actor.inventory[item]);
+            if (missingItems.length > 0) {
+                console.log('Missing items:', missingItems.join(', '));
+                // Show a message to the player about missing items
+                const overlayText = StylizedTextBox.createDynamicBox(this, 50, 50, 'You need to find the following items to escape:\n' +
+                    missingItems.join('\n') + '\n' +
+                    'Find them in the village.\n\n' +
+                    'Dismiss this dialog with space.\n'
+                ).setDepth(1000);
+                this.input.keyboard.once('keydown-SPACE', () => {
+                    if (overlayText) {
+                        overlayText.destroy();
+                        overlayText = null;
+                    }
+                });
+            } else {
+                console.log('All needed items collected!');
+                // Proceed with the escape logic
+                const overlayText = StylizedTextBox.createDynamicBox(this, 50, 50, 'You have all the items to escape!\n\n' +
+                    'Press space to escape.\n'
+                ).setDepth(1000);
+                this.input.keyboard.once('keydown-SPACE', () => {
+                    if (overlayText) {
+                        overlayText.destroy();
+                        overlayText = null;
+                    }
+                    // Start the next scene or logic for escaping
+                    this.scene.start('EscapeScene', { gamemode: this.gamemode });
+                });
+            }
         });
 
         // Create a HUD container that stays fixed on screen
@@ -117,6 +173,23 @@ export default class GameScene extends Phaser.Scene {
             this.objectiveText.setStyle({ backgroundColor: 0x463829 });
             });
         this.objectiveText.setDepth(1000);
+
+        this.overlayText = StylizedTextBox.createDynamicBox(this, 50, 50, 'Where am I? What happened?\n' +
+            'I need to find a way out of this place.\n' +
+            'I should look for a boat.\n\n' +
+            'I can use the arrow keys to move around.\n' +
+            'I can interact with objects by pressing the space bar.\n' +
+            'I can collect items by clicking on them.\n\n' +
+            'Dismiss this dialog with space.\n'
+        ).setDepth(1000);
+
+        // Add space key handler
+        this.input.keyboard.once('keydown-SPACE', () => {
+            if (this.overlayText) {
+            this.overlayText.destroy();
+            this.overlayText = null;
+            }
+        });
     }
 
     createFancyText(x, y, message, size) {

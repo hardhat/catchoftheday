@@ -44,6 +44,7 @@ export default class StylizedTextBox extends Phaser.GameObjects.Container {
         textObject.setOrigin(0.5);
 
         this.add([background, highlight, textObject]);
+        this.setScrollFactor(0); // Disable scrolling
         scene.add.existing(this);
     }
 
@@ -57,8 +58,8 @@ export default class StylizedTextBox extends Phaser.GameObjects.Container {
             fontFamily: 'MedievalSharp',
             fontSize: '24px'
         });
-        const width = tempText.width + 40; // padding
-        const height = tempText.height + 20; // padding
+        const width = tempText.width + 5; // padding
+        const height = tempText.height + 5; // padding
         tempText.destroy();
         
         return new StylizedTextBox(scene, x, y, text, width, height);
