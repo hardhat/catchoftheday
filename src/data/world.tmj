@@ -2475,6 +2475,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"flavor_text",
                          "type":"string",
                          "value":"Michael row your boat ashore!"
@@ -2490,6 +2495,11 @@
                  "properties":[
                         {
                          "name":"collectable",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"collides",
                          "type":"bool",
                          "value":true
                         }, 
@@ -2513,6 +2523,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"flavor_text",
                          "type":"string",
                          "value":"To kindle fire is to invite the wind,"
@@ -2528,6 +2543,11 @@
                  "properties":[
                         {
                          "name":"collectable",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"collides",
                          "type":"bool",
                          "value":true
                         }, 
@@ -2551,6 +2571,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"flavor_text",
                          "type":"string",
                          "value":"Noise draws attention. In silence lies survival."
@@ -2566,6 +2591,11 @@
                  "properties":[
                         {
                          "name":"collectable",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"collides",
                          "type":"bool",
                          "value":true
                         }, 
@@ -2589,6 +2619,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"flavor_text",
                          "type":"string",
                          "value":"How will you ever get where you're\ngoing if you don't pick a direction?"
@@ -2604,6 +2639,11 @@
                  "properties":[
                         {
                          "name":"collectable",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"collides",
                          "type":"bool",
                          "value":true
                         }, 
@@ -2627,6 +2667,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"flavor_text",
                          "type":"string",
                          "value":"When the light is blinding, shadows grow bold."
@@ -2642,6 +2687,11 @@
                  "properties":[
                         {
                          "name":"collectable",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"collides",
                          "type":"bool",
                          "value":true
                         }, 
@@ -2665,6 +2715,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"flavor_text",
                          "type":"string",
                          "value":"It all starts with a single match."
@@ -2680,6 +2735,11 @@
                  "properties":[
                         {
                          "name":"collectable",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"collides",
                          "type":"bool",
                          "value":true
                         }, 
@@ -2703,6 +2763,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"flavor_text",
                          "type":"string",
                          "value":"Life is like a box of tackle, you never know what you will see."
@@ -2717,6 +2782,11 @@
                  "id":13,
                  "properties":[
                         {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
                          "name":"flavor_text",
                          "type":"string",
                          "value":""
@@ -2726,6 +2796,11 @@
                  "id":14,
                  "properties":[
                         {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
                          "name":"flavor_text",
                          "type":"string",
                          "value":""
@@ -2734,6 +2809,11 @@
                 {
                  "id":15,
                  "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
                         {
                          "name":"flavor_text",
                          "type":"string",
@@ -2745,6 +2825,11 @@
                  "properties":[
                         {
                          "name":"collectable",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"collides",
                          "type":"bool",
                          "value":false
                         }, 
@@ -2763,6 +2848,11 @@
                          "value":false
                         }, 
                         {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
                          "name":"name",
                          "type":"string",
                          "value":""
@@ -2773,6 +2863,11 @@
                  "properties":[
                         {
                          "name":"collectable",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"collides",
                          "type":"bool",
                          "value":false
                         }, 
@@ -2791,6 +2886,11 @@
                          "value":false
                         }, 
                         {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
                          "name":"name",
                          "type":"string",
                          "value":""
@@ -2805,9 +2905,186 @@
                          "value":false
                         }, 
                         {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
                          "name":"name",
                          "type":"string",
                          "value":""
+                        }]
+                }, 
+                {
+                 "id":21,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":22,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":23,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":24,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":25,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":26,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":27,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":28,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":29,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }]
+                },
+            
+                {
+                 "id":30,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":31,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":32,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":33,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":34,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":35,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":36,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":37,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":38,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":39,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
                         }]
                 }],
          "tilewidth":32

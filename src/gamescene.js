@@ -41,6 +41,7 @@ export default class GameScene extends Phaser.Scene {
 
         this.player = this.physics.add.sprite(100, 100, 'character');
         this.player.actor = new Player({scene:this, x:100, y:100, sprite:this.player, health:null});
+        this.player.actor.setObjectsLayer(objectsLayer);
         this.player.setScale(scaleFactor, scaleFactor);
         this.player.body.setSize(20, 20);
         this.player.body.setOffset(6.5, 10);
@@ -83,6 +84,11 @@ export default class GameScene extends Phaser.Scene {
 
         const inventoryBox = new StylizedTextBox(this, 400, 10, 'Collected item "lasagna"', 300, 50);
         const longText = new StylizedTextBox(this, 400, 70, 'Inventory\nItems', 200, 80);
+
+        this.events.on('itemCollected', (data) => {
+            console.log(`${data.item} collected! Total: ${data.count}`);
+            // Update UI or trigger other events
+        });
     }
 
     update() {
